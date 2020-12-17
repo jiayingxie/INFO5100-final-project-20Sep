@@ -519,11 +519,13 @@ public class ShowAndSearchUI2 extends JFrame {
                 SpecialModel specialModel = incentiveApi.updateSpecialPrice(dealerName, vehicleId, price);
                 Special special = specialModel.getSpecial();
 
-                if (special != null) {
+                if (special != null && (special.getStartDate().getTime() <= new Date().getTime())
+                        && (new Date().getTime() < special.getEndDate().getTime())) {
                     float sPrice = specialModel.getSpecialPrice();
                     specialPrice = String.valueOf(sPrice);
                 } else {
                     showIncentives.setVisible(false);
+                    showIncentives.setEnabled(false);
                     specialPrice = "none";
                 }
                 imageLabel.setIcon(new ImageIcon(img));
